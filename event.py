@@ -7,7 +7,8 @@ class Event():
         y=mouse_y // self.window.sizeBlock
         if self.window.Tboard.array[x][y].flagged:return
         if self.window.Tboard.array[x][y].bombExist:
-            self.window.Tboard.prinfbomb(mouse_x, mouse_y)
+            self.window.Tboard.prinfbomb(x, y)
+            self.window.running=False
         else: self.window.Tboard.prinfnum(mouse_x, mouse_y)
     def clickRight(self,mouse_x,mouse_y):
         x = mouse_x // self.window.sizeBlock

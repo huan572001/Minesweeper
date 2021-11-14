@@ -61,15 +61,23 @@ class Board():
                     self.window.screen.blit(arr[i.number], (x, y))
                     i.open=True
     def prinfbomb(self,x,y):
-        bomb = pygame.image.load('images/' + 'wrong-flag.png')
-        bomb = pygame.transform.scale(bomb, (50, 50))
-        x = x - x % 50
-        y = y - y % 50
-        for a in self.array:
-            for i in a:
-                if i.x==x and i.y==y:
-                    self.window.screen.blit(bomb, (x, y))
-                    i.open=True
+        bombAtClick = pygame.image.load('images/' + 'bomb-at-clicked-block.png')
+        bombAtClick = pygame.transform.scale(bombAtClick, (50, 50))
+        unClickedBomb= pygame.image.load('images/' + 'unclicked-bomb.png')
+        unClickedBomb= pygame.transform.scale(unClickedBomb, (50, 50))
+        wrongFlag = pygame.image.load('images/' + 'wrong-flag.png')
+        wrongFlag = pygame.transform.scale(wrongFlag, (50, 50))
+        self.window.screen.blit(bombAtClick, (x*50, y*50))
+        self.array[x][y].open=True
+        for col in range(self.line):
+            for row in range(self.line):
+                if not self.array[col][row].open:
+                    if self.array[col][row].flagged:
+                        if not self.array[col][row].bombExist:
+                            self.window.screen.blit(wrongFlag, (col * 50, row * 50))
+                    else:
+                        if self.array[col][row].bombExist:
+                            self.window.screen.blit(unClickedBomb, (col * 50, row * 50))
     def createBomb(self):
         n=0
         while n<self.numberOfBoom:
