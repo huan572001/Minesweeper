@@ -1,20 +1,20 @@
 import pygame
 from umbrella import Umbrella
 from board import Board
+from event import Event
 import os
 
 class Window(object):
     def __init__(self):
         self.GREY = (150, 150, 150)
-        self.WHILE = (255, 255, 255)
-        self.RED = (250, 0, 0)
         self.sizeBlock = 50
         self.Line=9
-        # self.game = game
+        self.event = Event(self)
         self.WIDTH = self.Line*self.sizeBlock+self.Line
         self.HEIGHT = self.Line*self.sizeBlock+self.Line
         self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
         self.Tboard = Board(self, 16)
+        self.running = True
     def draw(self):
         self.screen.fill(self.GREY)
         emptyBlock = pygame.image.load('images/' + 'empty-block.png')
@@ -30,17 +30,6 @@ class Window(object):
     def Running(self):
         self.Tboard.createBomb()
         self.Tboard.createNumber()
-        # self.Tboard.loadPictures()
-        running = True
-        while running:
-            mouse_x, mouse_y = pygame.mouse.get_pos()
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    running = False
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 1:
-                        if self.Tboard.array[mouse_x//self.sizeBlock][mouse_y//self.sizeBlock].bombExist:
-                            self.Tboard.prinfbomb(mouse_x,mouse_y)
-                        else:
-                            self.Tboard.prinfnum(mouse_x,mouse_y)
+        while self.running:
+            self.event.control()
             pygame.display.flip()
