@@ -18,7 +18,7 @@ class Window(object):
     def draw(self):
         self.screen.fill(self.GREY)
         emptyBlock = pygame.image.load('images/' + 'empty-block.png')
-        emptyBlock = pygame.transform.scale(emptyBlock, (50, 50))
+        emptyBlock = pygame.transform.scale(emptyBlock, (self.sizeBlock, self.sizeBlock))
         self.Tboard.array.pop(0)
         for col in range(self.Line):
             temp=[]

@@ -25,35 +25,35 @@ class Board():
         #chưa tối ưu code
         arr = []
         zero = pygame.image.load('images/' + '0.png')
-        zero = pygame.transform.scale(zero, (50, 50))
+        zero = pygame.transform.scale(zero, (self.window.sizeBlock, self.window.sizeBlock))
         arr.append(zero)
         One = pygame.image.load('images/' + '1.png')
-        One = pygame.transform.scale(One, (50, 50))
+        One = pygame.transform.scale(One, (self.window.sizeBlock, self.window.sizeBlock))
         arr.append(One)
         Two = pygame.image.load('images/' + '2.png')
-        Two = pygame.transform.scale(Two, (50, 50))
+        Two = pygame.transform.scale(Two, (self.window.sizeBlock, self.window.sizeBlock))
         arr.append(Two)
         three = pygame.image.load('images/' + '3.png')
-        three = pygame.transform.scale(three, (50, 50))
+        three = pygame.transform.scale(three, (self.window.sizeBlock, self.window.sizeBlock))
         arr.append(three)
         four = pygame.image.load('images/' + '4.png')
-        four = pygame.transform.scale(four, (50, 50))
+        four = pygame.transform.scale(four, (self.window.sizeBlock, self.window.sizeBlock))
         arr.append(four)
         five = pygame.image.load('images/' + '5.png')
-        five = pygame.transform.scale(five, (50, 50))
+        five = pygame.transform.scale(five, (self.window.sizeBlock, self.window.sizeBlock))
         arr.append(five)
         six = pygame.image.load('images/' + '6.png')
-        six = pygame.transform.scale(six, (50, 50))
+        six = pygame.transform.scale(six, (self.window.sizeBlock, self.window.sizeBlock))
         arr.append(six)
         seven = pygame.image.load('images/' + '7.png')
-        seven = pygame.transform.scale(seven, (50, 50))
+        seven = pygame.transform.scale(seven, (self.window.sizeBlock, self.window.sizeBlock))
         arr.append(seven)
         eight = pygame.image.load('images/' + '8.png')
-        eight = pygame.transform.scale(eight, (50, 50))
+        eight = pygame.transform.scale(eight, (self.window.sizeBlock, self.window.sizeBlock))
         arr.append(eight)
         #22
-        x=x-x%50
-        y=y-y%50
+        x=x-x%self.window.sizeBlock
+        y=y-y%self.window.sizeBlock
         for a in self.array:
             for i in a:
                 if i.x==x and i.y==y:
@@ -62,22 +62,22 @@ class Board():
                     i.open=True
     def prinfbomb(self,x,y):
         bombAtClick = pygame.image.load('images/' + 'bomb-at-clicked-block.png')
-        bombAtClick = pygame.transform.scale(bombAtClick, (50, 50))
+        bombAtClick = pygame.transform.scale(bombAtClick, (self.window.sizeBlock, self.window.sizeBlock))
         unClickedBomb= pygame.image.load('images/' + 'unclicked-bomb.png')
-        unClickedBomb= pygame.transform.scale(unClickedBomb, (50, 50))
+        unClickedBomb= pygame.transform.scale(unClickedBomb, (self.window.sizeBlock, self.window.sizeBlock))
         wrongFlag = pygame.image.load('images/' + 'wrong-flag.png')
-        wrongFlag = pygame.transform.scale(wrongFlag, (50, 50))
-        self.window.screen.blit(bombAtClick, (x*50, y*50))
+        wrongFlag = pygame.transform.scale(wrongFlag, (self.window.sizeBlock, self.window.sizeBlock))
+        self.window.screen.blit(bombAtClick, (x*self.window.sizeBlock, y*self.window.sizeBlock))
         self.array[x][y].open=True
         for col in range(self.line):
             for row in range(self.line):
                 if not self.array[col][row].open:
                     if self.array[col][row].flagged:
                         if not self.array[col][row].bombExist:
-                            self.window.screen.blit(wrongFlag, (col * 50, row * 50))
+                            self.window.screen.blit(wrongFlag, (col * self.window.sizeBlock, row * self.window.sizeBlock))
                     else:
                         if self.array[col][row].bombExist:
-                            self.window.screen.blit(unClickedBomb, (col * 50, row * 50))
+                            self.window.screen.blit(unClickedBomb, (col * self.window.sizeBlock, row * self.window.sizeBlock))
     def createBomb(self):
         n=0
         while n<self.numberOfBoom:

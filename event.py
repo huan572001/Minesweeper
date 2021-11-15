@@ -15,14 +15,14 @@ class Event():
         flag=pygame.image.load('images/' + 'flag.png')
         flag=pygame.transform.scale(flag, (50, 50))
         emptyBlock = pygame.image.load('images/' + 'empty-block.png')
-        emptyBlock = pygame.transform.scale(emptyBlock, (50, 50))
+        emptyBlock = pygame.transform.scale(emptyBlock, (self.window.sizeBlock, self.window.sizeBlock))
         if self.window.Tboard.array[x][y].open:return
         if self.window.Tboard.array[x][y].flagged:
             self.window.Tboard.array[x][y].flagged=False
-            self.window.screen.blit(emptyBlock,(x*50,y*50))
+            self.window.screen.blit(emptyBlock,(x*self.window.sizeBlock,y*self.window.sizeBlock))
         else:
             self.window.Tboard.array[x][y].flagged=True
-            self.window.screen.blit(flag, (x*50, y*50))
+            self.window.screen.blit(flag, (x*self.window.sizeBlock, y*self.window.sizeBlock))
     def control(self):
         mouse_x, mouse_y = pygame.mouse.get_pos()
         for event in pygame.event.get():
@@ -30,7 +30,7 @@ class Event():
                 self.window.running = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 mouse = pygame.mouse.get_pressed()
-                if mouse[0] == 1:
+                if mouse[0] == 1:#kích chuật trái
                     self.clickLeft(mouse_x,mouse_y)
-                elif mouse[2]==1:
+                elif mouse[2]==1:#kích chuật phải
                     self.clickRight(mouse_x,mouse_y)
