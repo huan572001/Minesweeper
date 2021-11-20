@@ -27,7 +27,7 @@ class Board():
             images[fileName.split(".")[0]]=img
         return images
     def prinfbomb(self,x,y):
-        self.window.screen.blit(self.Pictures["bomb-at-clicked-block"], (x*self.window.sizeBlock, y*self.window.sizeBlock))
+        self.window.drawPictures("bomb-at-clicked-block", x, y)
         self.array[x][y].open=True
         #duyetj taonf bộ mảng hai chiều
         for col in range(self.line):
@@ -38,11 +38,11 @@ class Board():
                     if self.array[col][row].flagged:
                         #nếu ô ko có bom
                         if not self.array[col][row].bombExist:
-                            self.window.screen.blit(self.Pictures["wrong-flag"], (col * self.window.sizeBlock, row * self.window.sizeBlock))
+                            self.window.drawPictures("wrong-flag", col, row)
                     else:
                         #nếu ô có bom
                         if self.array[col][row].bombExist:
-                            self.window.screen.blit(self.Pictures["unclicked-bomb"], (col * self.window.sizeBlock, row * self.window.sizeBlock))
+                            self.window.drawPictures("unclicked-bomb", col, row)
     def openUmbrella(self,x,y):#hàm mở ô
         # nếu ô chưa mở và ô chưa cắm cờ
         if (not self.array[x][y].open) and (not self.array[x][y].flagged):
@@ -52,15 +52,14 @@ class Board():
                 self.prinfbomb(x,y)
             else:
                 if self.array[x][y].number>0:
-                    self.window.screen.blit(self.Pictures[str(self.array[x][y].number)],
-                                            (x * self.window.sizeBlock, y * self.window.sizeBlock))
+                    self.window.drawPictures(str(self.array[x][y].number),x,y)
                 else:#ô không có số
-                    self.window.screen.blit(self.Pictures[str(self.array[x][y].number)],
-                                            (x * self.window.sizeBlock, y * self.window.sizeBlock))
+                    self.window.drawPictures(str(self.array[x][y].number), x, y)
                     for i in range(x - 1, x + 2):
                         for j in range(y - 1, y + 2):
                             # xét những vị trí không hợp=> tiếp tục lặp
                             if i < 0 or i >= self.line or j < 0 or j >= self.columns or (i == x and j == y): continue
+                            #dệ quy
                             self.openUmbrella(i,j)
     def createBomb(self):
         n=0#đếm số bom đc tạo ra
