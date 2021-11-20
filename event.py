@@ -13,6 +13,7 @@ class Event():
         #nếu ô dang mơ thì thoát
         if self.window.Tboard.array[x][y].open:return
         #nếu ô đang cắm cờ thì tắt cờ đi
+        if x < 0 or y < 0: return
         if self.window.Tboard.array[x][y].flagged:
             self.window.Tboard.array[x][y].flagged=False
             self.window.drawPictures("empty-block", x, y)
