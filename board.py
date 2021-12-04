@@ -14,8 +14,14 @@ class Board():
         self.Pictures = self.loadPictures()  # Dictionary chứa ảnh
         self.Lose = False
         self.array = [[Umbrella()]]  # khởi tạo mảng hai chiều chứa các ô
-
-
+        self.createarray()
+    def createarray(self):
+        del self.array[0]
+        for col in range(self.line):#tạo phàn tử có mảng hai chiều
+            temp=[]
+            for row in range(self.line):
+                temp.append(Umbrella())
+            self.array.append(temp)
     def loadPictures(self):  # tải ảnh lên
         images = {}
 

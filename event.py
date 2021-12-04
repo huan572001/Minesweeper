@@ -8,10 +8,10 @@ class Event():
     def clickLeft(self, x, y):
         # lấy tạo độ của mảng 2 chiều
         # nếu ô chưa mở và ô chưa cắm cờ
-        if x < 0 or y < 0: return
-            # self.window.reset()
-            # self.window.draw()
-        if (not self.window.Tboard.array[x][y].open) and (not self.window.Tboard.array[x][y].flagged):
+        if x < 0 or y < 0:
+            self.window.reset()
+            self.window.draw()
+        elif (not self.window.Tboard.array[x][y].open) and (not self.window.Tboard.array[x][y].flagged):
             self.window.Tboard.openUmbrella(x, y)
             self.window.Tboard.checkWin()
             self.window.Tboard.checkLose()

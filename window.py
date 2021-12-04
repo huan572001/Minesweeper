@@ -24,20 +24,24 @@ class Window(object):
         self.screen.blit(self.Tboard.Pictures[fileName],
                          (x * self.sizeBlock, self.windowsetting + y * self.sizeBlock))
 
-    def draw(self):  # vẽ bảng
-        self.Tboard.array.pop(0)  # lấy ra ô khởi tạo sẵn ban đầu và xóa nó khỏi mảng
+    # def draw(self):  # vẽ bảng
+    #     self.Tboard.array.pop(0)  # lấy ra ô khởi tạo sẵn ban đầu và xóa nó khỏi mảng
+    #     self.screen.blit(self.Tboard.Pictures['restart'], (100, 0))
+    #     for col in range(self.Line):  # tạo phàn tử có mảng hai chiều
+    #         temp = []
+    #         for row in range(self.Line):
+    #             temp.append(Umbrella())
+    #             self.drawPictures("empty-block", col, row)
+    #         self.Tboard.array.append(temp)
+    def draw(self):#vẽ bảng
         self.screen.blit(self.Tboard.Pictures['restart'], (100, 0))
-        for col in range(self.Line):  # tạo phàn tử có mảng hai chiều
-            temp = []
+        for col in range(self.Line):#tạo phàn tử có mảng hai chiều
             for row in range(self.Line):
-                temp.append(Umbrella())
                 self.drawPictures("empty-block", col, row)
-            self.Tboard.array.append(temp)
-
     def reset(self):
-        self.Tboard = Board(self, 36)
-        self.Tboard.createBomb()
-        self.Tboard.createNumber()
+        self.Tboard = Board(self, 36)  # tạo đối tượng bảng
+        self.Tboard.createBomb()  # khởi tạo bom
+        self.Tboard.createNumber()  # khởi tạo số cho các ô
 
     def Running(self):
         self.Tboard.createBomb()  # khởi tạo bom
