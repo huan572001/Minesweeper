@@ -19,6 +19,7 @@ class Board():
         del self.array[0]
         for col in range(self.line):#tạo phàn tử có mảng hai chiều
             temp=[]
+
             for row in range(self.line):
                 temp.append(Umbrella())
             self.array.append(temp)
