@@ -12,14 +12,15 @@ class Board():
         self.numberOfBoom = NumberOfBoom  # so boom
         self.flag = 0  # số cờ đã đánh dấu
         self.Pictures = self.loadPictures()  # Dictionary chứa ảnh
+        self.setting = self.PictureSetting()
         self.Lose = False
+        self.Win = False
         self.array = [[Umbrella()]]  # khởi tạo mảng hai chiều chứa các ô
         self.createarray()
     def createarray(self):
         del self.array[0]
         for col in range(self.line):#tạo phàn tử có mảng hai chiều
             temp=[]
-
             for row in range(self.line):
                 temp.append(Umbrella())
             self.array.append(temp)
@@ -35,6 +36,22 @@ class Board():
             img = pygame.image.load('images/' + fileName)
             # tạo kích thước cho hinh ảnh
             img = pygame.transform.scale(img, (self.window.sizeBlock, self.window.sizeBlock))
+            # cho hinh ảnh vào Dictionary key là ký tự trước dấu "." valua là img
+            images[fileName.split(".")[0]] = img
+        return images
+
+    def PictureSetting(self):  # tải ảnh lên
+        images = {}
+
+        # Phương thức này trả về một danh sách chứa tên của các mục trong thư mục images
+        for fileName in os.listdir("images"):
+            # những file ko có đuôi .png thì bỏ qua
+            if not fileName.endswith(".png"):
+                continue
+            # tải hình ảnh từ tệp images
+            img = pygame.image.load('images/' + fileName)
+            # tạo kích thước cho hinh ảnh
+            img = pygame.transform.scale(img, (self.window.sizeBlock*5, self.window.sizeBlock*4))
             # cho hinh ảnh vào Dictionary key là ký tự trước dấu "." valua là img
             images[fileName.split(".")[0]] = img
         return images
@@ -120,12 +137,24 @@ class Board():
         text = font.render(text, True, (0, 0, 0))
         self.window.screen.blit(text, (50, 50))
 
+    def SumBoom(self, Sum):
+        self.window.screen.blit(self.Pictures['0'], (0, 0))
+        pygame.init()
+        font = pygame.font.SysFont('console', self.window.sizeBlock-5)
+        Sum = font.render(str(Sum), True, (61, 61, 61))
+        self.window.screen.blit(Sum, (0, 0))
+
     def checkWin(self):
         if self.countOpen() == self.numberOfBoom:
             print(1)
             self.text('You Win')
+            self.Win = True
 
     def checkLose(self):
         if self.Lose == True:
             print('lose')
             self.text('You Lose')
+
+
+
+

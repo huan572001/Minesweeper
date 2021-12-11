@@ -6,17 +6,18 @@ from event import Event
 import os
 
 
-class Window(object):
-    def __init__(self):
+class Window():
+    def __init__(self,line,game):
         self.event = Event(self)
-        self.sizeBlock = 25  # kich thước 1 ô
-        self.Line = 18  # so ô trên 1 dòng
-        self.windowsetting = 25
+        self.game = game
+        self.sizeBlock =35 # kich thước 1 ô
+        self.Line = line  # so ô trên 1 dòng
+        self.windowsetting = self.sizeBlock
         self.WIDTH = self.Line * self.sizeBlock  # chiều ngang cửa sổ bằng số dòng nhân kích thước
         self.HEIGHT = self.Line * self.sizeBlock + self.windowsetting  # chiều cao cửa sổ bằng số cột nhân kích thước
         self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))  # cửa sổ hiển thị
         self.Tboard = Board(self, 36)  # tạo đối tượng bảng
-        self.running = True
+        # self.running = True
         self.DISPLAYSURF = pygame.display.set_mode((self.WIDTH, self.HEIGHT))
 
 
@@ -34,10 +35,14 @@ class Window(object):
     #             self.drawPictures("empty-block", col, row)
     #         self.Tboard.array.append(temp)
     def draw(self):#vẽ bảng
-        self.screen.blit(self.Tboard.Pictures['restart'], (100, 0))
-        for col in range(self.Line):#tạo phàn tử có mảng hai chiều
+        self.screen.blit(self.Tboard.Pictures['0'], (0, 0))
+        self.Tboard.SumBoom(36)
+        self.screen.blit(self.Tboard.Pictures['restart'], ((self.Line*self.sizeBlock/2),0))
+        self.screen.blit(self.Tboard.Pictures['setting'], ((self.Line * self.sizeBlock - self.sizeBlock), 0))
+        for col in range(self.Line):#ve bang
             for row in range(self.Line):
                 self.drawPictures("empty-block", col, row)
+
     def reset(self):
         self.Tboard = Board(self, 36)  # tạo đối tượng bảng
         self.Tboard.createBomb()  # khởi tạo bom
@@ -46,6 +51,6 @@ class Window(object):
     def Running(self):
         self.Tboard.createBomb()  # khởi tạo bom
         self.Tboard.createNumber()  # khởi tạo số cho các ô
-        while self.running:
+        while self.game.running:
             self.event.control()  # thao tác chuật
             pygame.display.flip()  # cập nhật nội dung của toàn bộ màn hình

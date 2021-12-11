@@ -1,4 +1,4 @@
-from window import Window
-app=Window()
-app.draw()
-app.Running()
+from game import Game
+app=Game()
+app.drawmenu()
+app.run()
