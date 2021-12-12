@@ -7,6 +7,7 @@ from umbrella import Umbrella
 class Board():
     def __init__(self, Window, NumberOfBoom):
         self.window = Window
+        self.ChangeBoom = NumberOfBoom
         self.line = self.window.Line  # so dong
         self.columns = self.window.Line  # so cot
         self.numberOfBoom = NumberOfBoom  # so boom
@@ -146,14 +147,15 @@ class Board():
 
     def checkWin(self):
         if self.countOpen() == self.numberOfBoom:
-            print(1)
             self.text('You Win')
             self.Win = True
 
     def checkLose(self):
         if self.Lose == True:
-            print('lose')
             self.text('You Lose')
+            pygame.mixer.init()
+            pygame.mixer.music.load("sound.mp3")
+            pygame.mixer.music.play()
 
 
 

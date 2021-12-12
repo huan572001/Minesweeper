@@ -4,7 +4,6 @@ import pygame
 class Event():
     def __init__(self, Window):
         self.window = Window
-        self.sumbom = 36
     def clickLeft(self, x, y):
         # lấy tạo độ của mảng 2 chiều
         # nếu ô chưa mở và ô chưa cắm cờ
@@ -12,7 +11,6 @@ class Event():
             if x == self.window.Line / 2 :
                 self.window.reset()
                 self.window.draw()
-                self.sumbom=36
             if x == self.window.Line - 1 :
                 self.window.game.drawmenu()
                 self.window.game.run()
@@ -32,12 +30,12 @@ class Event():
         if self.window.Tboard.array[x][y].flagged:
             self.window.Tboard.array[x][y].flagged = False
             self.window.drawPictures("empty-block", x, y)
-            self.sumbom = self.sumbom + 1
+            self.window.Tboard.ChangeBoom = self.window.Tboard.ChangeBoom + 1
         else:  # nếu ô chưa cắm cờ thì cắm cờ vô
             self.window.Tboard.array[x][y].flagged = True
             self.window.drawPictures("flag", x, y)
-            self.sumbom=self.sumbom - 1
-        self.window.Tboard.SumBoom(self.sumbom)
+            self.window.Tboard.ChangeBoom=self.window.Tboard.ChangeBoom - 1
+        self.window.Tboard.SumBoom(self.window.Tboard.ChangeBoom)
 
     def control(self):
         mouse_x, mouse_y = pygame.mouse.get_pos()  # lấy tọa đọ chuật
