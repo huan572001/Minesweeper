@@ -5,6 +5,8 @@ I. Hướng dẫn cài đặt thư viện Pygame
 II. Hướng dẫn chơi game Minesweeper 
 1. Mục tiêu
   - Trong Minesweeper, người chơi phải mở được tất cả các ô không có mìn trên một bảng ô vuông.
+![image](https://user-images.githubusercontent.com/92346171/145825564-5fd08f69-96cd-43eb-a16d-c6fbe1b20fb1.png)
+
 2. Luật chơi
   - Người chơi khởi đầu với một bảng ô vuông trống thể hiện "bãi mìn".
   - Click chuột vào một ô vuông trong bảng. Nếu không may trúng phải ô có mìn (điều này thường xảy ra với người mới chơi) thì trò chơi kết thúc. Trường hợp khác là ô đó không có    mìn và một vùng các ô sẽ được mở ra cùng với những con số. Số trên một ô là lượng mìn trong 8 ô nằm quanh với ô đó.
