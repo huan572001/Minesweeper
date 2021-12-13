@@ -4,23 +4,22 @@ import pygame
 class Event():
     def __init__(self, Window):
         self.window = Window
+
     def clickLeft(self, x, y):
         # lấy tạo độ của mảng 2 chiều
         # nếu ô chưa mở và ô chưa cắm cờ
         if y < 0:
-            if x == self.window.Line / 2 :
+            if x == self.window.Line // 2:
                 self.window.reset()
                 self.window.draw()
-            if x == self.window.Line - 1 :
+            if x == self.window.Line - 1:
                 self.window.game.drawmenu()
                 self.window.game.run()
-
         elif (not self.window.Tboard.array[x][y].open) and (not self.window.Tboard.array[x][y].flagged) \
                 and (self.window.Tboard.Win == False) and (self.window.Tboard.Lose == False):
             self.window.Tboard.openUmbrella(x, y)
             self.window.Tboard.checkWin()
             self.window.Tboard.checkLose()
-
 
     def clickRight(self, x, y):
         # nếu ô dang mơ thì thoát
@@ -34,7 +33,7 @@ class Event():
         else:  # nếu ô chưa cắm cờ thì cắm cờ vô
             self.window.Tboard.array[x][y].flagged = True
             self.window.drawPictures("flag", x, y)
-            self.window.Tboard.ChangeBoom=self.window.Tboard.ChangeBoom - 1
+            self.window.Tboard.ChangeBoom = self.window.Tboard.ChangeBoom - 1
         self.window.Tboard.SumBoom(self.window.Tboard.ChangeBoom)
 
     def control(self):

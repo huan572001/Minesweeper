@@ -5,21 +5,23 @@ from event import Event
 
 import os
 
-GRAY = (112,112,112)
+pygame.display.set_caption('Minesweeper')
+GRAY = (112, 112, 112)
+
+
 class Window():
-    def __init__(self,line,game, NumberofBoom):
+    def __init__(self, line, game, NumberofBoom):
         self.event = Event(self)
         self.game = game
-        self.sizeBlock =35 # kich thước 1 ô
+        self.sizeBlock = 35  # kich thước 1 ô
         self.Line = line  # so ô trên 1 dòng
         self.windowsetting = self.sizeBlock
         self.WIDTH = self.Line * self.sizeBlock  # chiều ngang cửa sổ bằng số dòng nhân kích thước
         self.HEIGHT = self.Line * self.sizeBlock + self.windowsetting  # chiều cao cửa sổ bằng số cột nhân kích thước
         self.screen = pygame.display.set_mode((self.WIDTH, self.HEIGHT))  # cửa sổ hiển thị
-        self.numberofBoom=NumberofBoom
+        self.numberofBoom = NumberofBoom
         self.Tboard = Board(self, self.numberofBoom)  # tạo đối tượng bảng
         # self.running = True
-
 
     def drawPictures(self, fileName, x, y):
         self.screen.blit(self.Tboard.Pictures[fileName],
@@ -34,18 +36,18 @@ class Window():
     #             temp.append(Umbrella())
     #             self.drawPictures("empty-block", col, row)
     #         self.Tboard.array.append(temp)
-    def draw(self):#vẽ bảng
+    def draw(self):  # vẽ bảng
         self.screen.fill(GRAY)
         self.screen.blit(self.Tboard.Pictures['0'], (0, 0))
         self.Tboard.SumBoom(self.Tboard.ChangeBoom)
-        self.screen.blit(self.Tboard.Pictures['restart'], ((self.Line*self.sizeBlock/2),0))
+        self.screen.blit(self.Tboard.Pictures['restart'], ((self.Line // 2 * self.sizeBlock), 0))
         self.screen.blit(self.Tboard.Pictures['setting'], ((self.Line * self.sizeBlock - self.sizeBlock), 0))
-        for col in range(self.Line):#ve bang
+        for col in range(self.Line):  # ve bang
             for row in range(self.Line):
                 self.drawPictures("empty-block", col, row)
 
     def reset(self):
-        self.Tboard = Board(self,self.numberofBoom)  # tạo đối tượng bảng
+        self.Tboard = Board(self, self.numberofBoom)  # tạo đối tượng bảng
         self.Tboard.createBomb()  # khởi tạo bom
         self.Tboard.createNumber()  # khởi tạo số cho các ô
 

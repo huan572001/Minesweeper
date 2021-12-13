@@ -4,13 +4,11 @@ from pygame.locals import *
 
 pygame.init()
 
-
 BLACK = (0, 0, 0)
 WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
-
 
 class Game():
     def __init__(self):
@@ -50,7 +48,7 @@ class Game():
         self.screen = pygame.display.set_mode((600, 600))
         self.textSet('MINESWEEPER', 150, 100)
         pygame.draw.rect(self.screen, GREEN, (200, 200, 200, 50))  # Hình chữ nhật
-        self.textSet('10x10', 220, 200)
+        self.textSet('9x9', 250, 200)
         pygame.draw.rect(self.screen, RED, (200, 300, 200, 50))  # Hình chữ nhật
         self.textSet('16x16', 220, 300)
         pygame.draw.rect(self.screen, BLUE, (200, 400, 200, 50))  # Hình chữ nhật

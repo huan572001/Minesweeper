@@ -3,6 +3,9 @@ import pygame
 import os
 from umbrella import Umbrella
 
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+
 
 class Board():
     def __init__(self, Window, NumberOfBoom):
@@ -13,18 +16,19 @@ class Board():
         self.numberOfBoom = NumberOfBoom  # so boom
         self.flag = 0  # số cờ đã đánh dấu
         self.Pictures = self.loadPictures()  # Dictionary chứa ảnh
-        self.setting = self.PictureSetting()
         self.Lose = False
         self.Win = False
         self.array = [[Umbrella()]]  # khởi tạo mảng hai chiều chứa các ô
         self.createarray()
+
     def createarray(self):
         del self.array[0]
-        for col in range(self.line):#tạo phàn tử có mảng hai chiều
-            temp=[]
+        for col in range(self.line):  # tạo phàn tử có mảng hai chiều
+            temp = []
             for row in range(self.line):
                 temp.append(Umbrella())
             self.array.append(temp)
+
     def loadPictures(self):  # tải ảnh lên
         images = {}
 
@@ -37,22 +41,6 @@ class Board():
             img = pygame.image.load('images/' + fileName)
             # tạo kích thước cho hinh ảnh
             img = pygame.transform.scale(img, (self.window.sizeBlock, self.window.sizeBlock))
-            # cho hinh ảnh vào Dictionary key là ký tự trước dấu "." valua là img
-            images[fileName.split(".")[0]] = img
-        return images
-
-    def PictureSetting(self):  # tải ảnh lên
-        images = {}
-
-        # Phương thức này trả về một danh sách chứa tên của các mục trong thư mục images
-        for fileName in os.listdir("images"):
-            # những file ko có đuôi .png thì bỏ qua
-            if not fileName.endswith(".png"):
-                continue
-            # tải hình ảnh từ tệp images
-            img = pygame.image.load('images/' + fileName)
-            # tạo kích thước cho hinh ảnh
-            img = pygame.transform.scale(img, (self.window.sizeBlock*5, self.window.sizeBlock*4))
             # cho hinh ảnh vào Dictionary key là ký tự trước dấu "." valua là img
             images[fileName.split(".")[0]] = img
         return images
@@ -132,31 +120,29 @@ class Board():
                     NumberOfOpened += 1
         return NumberOfOpened
 
-    def text(self, text):
+    def text(self, text, x, y):
         pygame.init()
-        font = pygame.font.SysFont('console', 50)
-        text = font.render(text, True, (0, 0, 0))
-        self.window.screen.blit(text, (50, 50))
+        font = pygame.font.SysFont('Helvetica', 50)
+        text = font.render(text, True, RED)
+        self.window.screen.blit(text, (x, y))
 
     def SumBoom(self, Sum):
         self.window.screen.blit(self.Pictures['0'], (0, 0))
         pygame.init()
-        font = pygame.font.SysFont('console', self.window.sizeBlock-5)
+        font = pygame.font.SysFont('Helvetica', self.window.sizeBlock - 5)
         Sum = font.render(str(Sum), True, (61, 61, 61))
         self.window.screen.blit(Sum, (0, 0))
 
     def checkWin(self):
         if self.countOpen() == self.numberOfBoom:
-            self.text('You Win')
+            pygame.draw.rect(self.window.screen, GREEN,(self.window.WIDTH/2, self.window.HEIGHT/2, 200, 50))
+            self.text('You Win', self.window.WIDTH/2, self.window.HEIGHT/2)
             self.Win = True
 
     def checkLose(self):
         if self.Lose == True:
-            self.text('You Lose')
+            pygame.draw.rect(self.window.screen, GREEN, (self.window.WIDTH/4, self.window.HEIGHT/2, 200, 50))
+            self.text('You Lose', self.window.WIDTH/4, self.window.HEIGHT/2)
             pygame.mixer.init()
             pygame.mixer.music.load("sound.mp3")
             pygame.mixer.music.play()
-
-
-
-
