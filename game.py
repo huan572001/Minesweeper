@@ -53,3 +53,4 @@ class Game():
         self.textSet('16x16', 220, 300)
         pygame.draw.rect(self.screen, BLUE, (200, 400, 200, 50))  # Hình chữ nhật
         self.textSet('20x20', 220, 400)
+
